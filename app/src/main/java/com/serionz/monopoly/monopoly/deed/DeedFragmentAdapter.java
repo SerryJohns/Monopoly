@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.bumptech.glide.Glide;
 import com.serionz.monopoly.monopoly.R;
 import com.serionz.monopoly.monopoly.models.Deed;
 import com.serionz.monopoly.monopoly.utils.DeedData;
@@ -20,22 +21,23 @@ import java.util.List;
  */
 
 public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapter.ViewHolder> {
-	private ArrayList<Deed> items = new ArrayList<>();
+	private ArrayList<Integer> items = new ArrayList<>();
 	private ArrayList<String> rentItems;
 	private Deed deed;
 
 	public DeedFragmentAdapter() {
-		this.items = DeedData.deeds;
+		this.items = DeedData.imageDeeds;
 	}
 
 	@Override
 	public DeedFragmentAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.deed_layout, parent, false);
+		View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.deed_image_layout, parent, false);
 		return new ViewHolder(v);
 	}
 
 	@Override public void onBindViewHolder(ViewHolder holder, int position) {
 		holder.position = position;
+		Glide.with(holder.itemView).load(items.get(position)).into(holder.imageView);
 	}
 
 	@Override public int getItemCount() {
@@ -47,14 +49,15 @@ public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapte
 		private RecyclerView rentDetails;
 		private RentDetailsAdapter rentDetailsAdapter;
 
-		@BindView(R.id.img_title_bg) ImageView titleBg;
+		/*@BindView(R.id.img_title_bg) ImageView titleBg;
 		@BindView(R.id.txt_deed_name) TextView deedName;
-		@BindView(R.id.txt_rent) TextView rent;
+		@BindView(R.id.txt_rent) TextView rent;*/
+		@BindView(R.id.img_deed) ImageView imageView;
 
 		public ViewHolder(View itemView) {
 			super(itemView);
 			ButterKnife.bind(this, itemView);
-			deed = items.get(position);
+			/*deed = items.get(position);
 			rentItems = new ArrayList<String>() {
 				{
 					add(deed.getRent().getOneHouse());
@@ -75,7 +78,7 @@ public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapte
 
 			titleBg.setBackgroundColor(items.get(position).getColor());
 			deedName.setText(deed.getName());
-			rent.setText(deed.getRentAmt());
+			rent.setText(deed.getRentAmt());*/
 		}
 
 	}
