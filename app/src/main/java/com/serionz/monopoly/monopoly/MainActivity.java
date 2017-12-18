@@ -1,13 +1,18 @@
 package com.serionz.monopoly.monopoly;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements
+		DeedFragment.OnFragmentInteractionListener {
 
 	private TextView mTextMessage;
 
@@ -18,13 +23,13 @@ public class MainActivity extends AppCompatActivity {
 		public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 			switch (item.getItemId()) {
 				case R.id.navigation_home:
-					mTextMessage.setText(R.string.title_home);
+					// TODO add home
 					return true;
 				case R.id.navigation_dashboard:
-					mTextMessage.setText(R.string.title_dashboard);
+					// TODO add_dashboard
 					return true;
 				case R.id.navigation_notifications:
-					mTextMessage.setText(R.string.title_notifications);
+					// TODO add_notification
 					return true;
 			}
 			return false;
@@ -39,5 +44,16 @@ public class MainActivity extends AppCompatActivity {
 		mTextMessage = (TextView) findViewById(R.id.message);
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+		DeedFragment deedFragment = new DeedFragment();
+		FragmentManager manager = getSupportFragmentManager();
+		manager.beginTransaction()
+				.replace(R.id.fragment_container, deedFragment, deedFragment.getTag())
+				.commit();
+
+	}
+
+	@Override public void onFragmentInteraction(Uri uri) {
+
 	}
 }

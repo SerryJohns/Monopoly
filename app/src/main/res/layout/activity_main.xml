@@ -22,9 +22,13 @@
       app:menu="@menu/navigation"
       />
   <LinearLayout
-      android:id="@+id/container"
+      android:id="@+id/fragment_container"
       android:layout_width="0dp"
       android:layout_height="0dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginEnd="8dp"
+      android:layout_marginStart="8dp"
+      android:layout_marginTop="8dp"
       android:orientation="vertical"
       app:layout_constraintBottom_toTopOf="@+id/navigation"
       app:layout_constraintEnd_toEndOf="parent"
