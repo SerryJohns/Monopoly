@@ -51,7 +51,7 @@ public class DeedFragment extends Fragment implements DeedFragmentContract.View 
 		View deedLayoutView = getLayoutInflater().inflate(R.layout.deed_layout, container, false);
 		RecyclerView cardsRecyclerView = (RecyclerView) view.findViewById(R.id.cards_recycler_view);
 
-		deedFragmentAdapter = new DeedFragmentAdapter(this.items);
+		deedFragmentAdapter = new DeedFragmentAdapter();
 		cardsRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 		cardsRecyclerView.setItemAnimator(new DefaultItemAnimator());
 		cardsRecyclerView.setAdapter(deedFragmentAdapter);

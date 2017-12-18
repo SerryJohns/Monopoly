@@ -10,6 +10,8 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.serionz.monopoly.monopoly.R;
+import com.serionz.monopoly.monopoly.models.Deed;
+import com.serionz.monopoly.monopoly.utils.DeedData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,12 +20,12 @@ import java.util.List;
  */
 
 public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapter.ViewHolder> {
-	private  ArrayList<String> items;
+	private ArrayList<Deed> items = new ArrayList<>();
 	private ArrayList<String> rentItems;
+	private Deed deed;
 
-	public DeedFragmentAdapter(ArrayList<String> items) {
-		this.items = items;
-		this.rentItems = items;
+	public DeedFragmentAdapter() {
+		this.items = DeedData.deeds;
 	}
 
 	@Override
@@ -41,7 +43,7 @@ public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapte
 	}
 
 	public class ViewHolder extends RecyclerView.ViewHolder {
-		public Integer position;
+		public int position;
 		private RecyclerView rentDetails;
 		private RentDetailsAdapter rentDetailsAdapter;
 
@@ -52,10 +54,28 @@ public class DeedFragmentAdapter extends RecyclerView.Adapter<DeedFragmentAdapte
 		public ViewHolder(View itemView) {
 			super(itemView);
 			ButterKnife.bind(this, itemView);
+			deed = items.get(position);
+			rentItems = new ArrayList<String>() {
+				{
+					add(deed.getRent().getOneHouse());
+					add(deed.getRent().getTwoHouses());
+					add(deed.getRent().getThreeHouses());
+					add(deed.getRent().getFourHouses());
+					add(deed.getRent().getHotel());
+					add(deed.getRent().getMortgage());
+
+					add(deed.getRent().getHouseCost());
+					add(deed.getRent().getHotelCostAddition());
+				}
+			};
 			rentDetailsAdapter = new RentDetailsAdapter(rentItems);
 			rentDetails = (RecyclerView) itemView.findViewById(R.id.rent_details_recycler);
 			rentDetails.setLayoutManager(new LinearLayoutManager(itemView.getContext()));
 			rentDetails.setAdapter(rentDetailsAdapter);
+
+			titleBg.setBackgroundColor(items.get(position).getColor());
+			deedName.setText(deed.getName());
+			rent.setText(deed.getRentAmt());
 		}
 
 	}
