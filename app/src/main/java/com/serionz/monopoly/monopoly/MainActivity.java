@@ -1,11 +1,17 @@
 package com.serionz.monopoly.monopoly;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,5 +45,16 @@ public class MainActivity extends AppCompatActivity {
 		mTextMessage = (TextView) findViewById(R.id.message);
 		BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
 		navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		FirebaseAuth auth = FirebaseAuth.getInstance();
+		if (auth.getCurrentUser() == null) {
+			startActivity(new Intent(MainActivity.this, LoginActivity.class));
+		}
+
 	}
 }
